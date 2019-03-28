@@ -8,7 +8,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: docker-compse build
+      - run: docker-compose build
       - run: docker-compose up -d
       - run: docker exec -it docker101_web_1 bash -c "cd /app; pytest"
 
