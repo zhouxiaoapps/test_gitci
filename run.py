@@ -32,7 +32,7 @@ import redis
 from flask import Flask
 from flask_jsonrpc import JSONRPC
 
-from logic import pick_bucket
+from logic import pick_bucket, auto_incr
 
 flask_logger = logging.getLogger('flask')
 flask_logger.setLevel(logging.INFO)
@@ -43,13 +43,6 @@ app = Flask(__name__)
 
 # Flask-JSONRPC
 jsonrpc = JSONRPC(app, '/api', enable_web_browsable_api=True)
-rd = redis.StrictRedis(host='redis', port=6379)
-KEY = 'visit'
-
-
-def auto_incr() -> int:
-    rd.incr(KEY)
-    return int(rd.get(KEY))
 
 
 @jsonrpc.method('App.index')
